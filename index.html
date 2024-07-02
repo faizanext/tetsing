@@ -9,15 +9,18 @@
             var appLink = 'flixoolive://store/21';
             var fallbackUrl = 'https://google.com/store/21';
 
-            var iframe = document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '1px';
-            iframe.style.height = '1px';
-            iframe.style.display = 'none';
-            iframe.src = appLink;
-            document.body.appendChild(iframe);
-
+            // var iframe = document.createElement('iframe');
+            // iframe.style.border = 'none';
+            // iframe.style.width = '1px';
+            // iframe.style.height = '1px';
+            // iframe.style.display = 'none';
+            // iframe.src = appLink;
+            // document.body.appendChild(iframe);
+            // window.location = fallbackUrl;
+            const data = window.open(appLink);
+            
             setTimeout(function() {
+                data.close();
                 document.body.removeChild(iframe);
                 window.location = fallbackUrl;
             }, 3000);
