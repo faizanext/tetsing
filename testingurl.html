@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <title>Deep Link Redirect</title>
@@ -9,27 +8,19 @@
         function openApp() {
             var appLink = 'flixoolive://store/21';
             var fallbackUrl = 'https://google.com/store/21';
-            var timeout;
 
-            var start = Date.now();
             var iframe = document.createElement('iframe');
             iframe.style.border = 'none';
             iframe.style.width = '1px';
             iframe.style.height = '1px';
-            iframe.onload = function() {
-                clearTimeout(timeout);
-                document.body.removeChild(iframe);
-                window.location = fallbackUrl;
-            };
+            iframe.style.display = 'none';
             iframe.src = appLink;
             document.body.appendChild(iframe);
 
-            timeout = setTimeout(function() {
-                var elapsed = Date.now() - start;
-                if (elapsed < 2000) {
-                    window.location = fallbackUrl;
-                }
-            }, 1500);
+            setTimeout(function() {
+                document.body.removeChild(iframe);
+                window.location = fallbackUrl;
+            }, 3000);
         }
 
         openApp();
