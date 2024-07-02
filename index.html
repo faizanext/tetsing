@@ -25,11 +25,8 @@
             document.body.appendChild(iframe);
 
             timeout = setTimeout(function() {
-                var elapsed = Date.now() - start;
-                if (elapsed < 2000) {
-                    window.location = fallbackUrl;
-                }
-            }, 1500);
+                    window.location = fallbackUrl; 
+            }, 3000);
         }
 
         openApp();
