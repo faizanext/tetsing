@@ -1,34 +1,28 @@
-<!DOCTYPE html>
+<script>
+    var timeoutId;
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App and Web Link Handling</title>
-</head>
-<body>
-    <button onclick="openAppOrWeb()">Open App or Web</button>
+    function tryOpenApp() {
+      var appLink = "flixoolive://Store/67";
+      var fallbackUrl = "https://whatnotinlikeappphase1-285840-react.b285840.dev.eastus.az.svc.builder.cafe/Store/67";
 
-    <script>
-        function openAppOrWeb() {
-            var appLink = 'flixoolive://Store/67';
-            var webLink = 'https://flixoo.com/Store/67';
+      window.location.href = appLink;
 
-            var startTime = Date.now();
+      timeoutId = setTimeout(function() {
+        window.location.href = fallbackUrl;
+      }, 1500);
 
-            // Attempt to open the app link
-            window.location.href = appLink;
+      document.addEventListener('visibilitychange', handleVisibilityChange);
 
-            // Check if the app link opened the app
-            setTimeout(function() {
-                // If 2 seconds have passed and the page is still focused,
-                // assume the app is not installed or did not open
-                if (document.hidden || Date.now() - startTime > 2000) {
-                    // Fallback to opening the web link
-                    window.location.href = webLink;
-                }
-            }, 2000);
-        }
-    </script>
-</body>
-</html>
+    }
+
+    window.onload = function() {
+      tryOpenApp();
+    };
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'hidden') {
+        clearTimeout(timeoutId);
+      }
+    }
+
+  </script>
